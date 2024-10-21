@@ -1,0 +1,53 @@
+- name: Satellite daily demo
+  hosts: localhost
+  connection: local
+
+  tasks:
+
+    - name: Include the vpc role
+      tags:
+        - create
+      ansible.builtin.include_role:
+        name: vpc
+
+    - name: Include the vm role
+      tags:
+        - create
+      ansible.builtin.include_role:
+        name: vm
+
+    - name: Include the inventory role
+      tags:
+        - create
+      ansible.builtin.include_role:
+        name: inventory
+
+    - name: Satellite User Interface
+      tags:
+        - create
+      ansible.builtin.debug:
+        msg: "https://{{ ec2_vms.instances[0].public_dns_name }}:8443"
+
+    - name: Satellite IP Address
+      tags:
+        - create
+      ansible.builtin.debug:
+        msg: "{{ ec2_vms.instances[0].public_ip_address }}"
+
+    - name: Include the vm role
+      tags:
+        - remove
+      ansible.builtin.include_role:
+        name: vm
+
+    - name: Include the vpc role
+      tags:
+        - remove
+      ansible.builtin.include_role:
+        name: vpc
+
+    - name: Include the inventory role
+      tags:
+        - remove
+      ansible.builtin.include_role:
+        name: inventory
