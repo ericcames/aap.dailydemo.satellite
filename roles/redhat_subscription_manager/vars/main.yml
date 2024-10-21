@@ -1,0 +1,5 @@
+---
+# Use a Red Hat Customer Portal credential
+# customer_portal_username: mikey.mouse
+# customer_portal_password: redhat123
+redhat_subscription_manager_status: present

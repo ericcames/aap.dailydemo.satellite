@@ -1,0 +1,7 @@
+---
+- name: Register and subscribe the system
+  community.general.redhat_subscription:
+    username: "{{ customer_portal_username }}"
+    password: "{{ customer_portal_password }}"
+    state: "{{ redhat_subscription_manager_status }}"
+    consumer_name: "{{ inventory_hostname }}"

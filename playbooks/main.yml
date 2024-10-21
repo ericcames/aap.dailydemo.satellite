@@ -26,7 +26,7 @@
       tags:
         - create
       ansible.builtin.debug:
-        msg: "https://{{ ec2_vms.instances[0].public_dns_name }}:8443"
+        msg: "https://{{ ec2_vms.instances[0].public_dns_name }}"
 
     - name: Satellite IP Address
       tags:
@@ -51,3 +51,20 @@
         - remove
       ansible.builtin.include_role:
         name: inventory
+
+- name: Do work on our new server
+  hosts: satellite
+
+  tasks:
+
+    - name: Red Hat Subscription Manager
+      tags:
+        - create
+      ansible.builtin.include_role:
+        name: redhat_subscription_manager
+
+    - name: Create local accounts
+      tags:
+        - create
+      ansible.builtin.include_role:
+        name: account_create
