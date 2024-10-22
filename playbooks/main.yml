@@ -71,6 +71,11 @@
       ansible.builtin.include_role:
         name: inventory
 
+    - name: End the playbook here
+      tags:
+        - remove
+      ansible.builtin.meta: end_play
+
 - name: Do work on our new server
   hosts: satellite
   become: true
