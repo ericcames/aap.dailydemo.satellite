@@ -71,11 +71,10 @@
       ansible.builtin.include_role:
         name: inventory
 
-    - name: End the playbook here
+    - name: Refresh the inventory
       tags:
         - remove
-      failed_when: false
-      ansible.builtin.fail:
+      ansible.builtin.meta: refresh_inventory
 
 - name: Do work on our new server
   hosts: satellite
