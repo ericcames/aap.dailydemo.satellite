@@ -77,7 +77,7 @@
       tags:
         - create
       ansible.builtin.debug:
-        var: my_public_ip
+        var: hostvars['localhost']['my_public_ip']
 
     - name: Create local accounts
       tags:
