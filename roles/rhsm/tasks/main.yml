@@ -13,6 +13,12 @@
         pool_ids:
           - '{{ rhsm_pool_id }}'
 
+    - name: Ensure repositories are able to be managed by subscription-manager
+      register: result
+      changed_when: result.rc == 1
+      failed_when: result.rc > 1
+      ansible.builtin.command: subscription-manager config --rhsm.manage_repos=1
+
     - name: Enable all repositories needed for satellite on RHEL 8
       with_items:
         - rhel-8-for-x86_64-appstream-rpms
