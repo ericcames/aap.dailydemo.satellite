@@ -66,5 +66,8 @@
         consumer_name: "{{ inventory_hostname }}"
 
     - name: UN-Register the insights client
-      redhat.insights.insights_register:
-        state: absent
+      vars:
+        rhc_insights:
+          rhc_state: absent
+      ansible.builtin.import_role:
+        name: redhat.rhel_system_roles.rhc
