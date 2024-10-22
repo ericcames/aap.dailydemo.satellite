@@ -8,7 +8,7 @@
       community.general.redhat_subscription:
         username: "{{ customer_portal_username }}"
         password: "{{ customer_portal_password }}"
-        state: "{{ rhsm_status }}"
+        state: present
         consumer_name: "{{ inventory_hostname }}"
         pool_ids:
           - '{{ rhsm_pool_id }}'
@@ -52,3 +52,19 @@
         owner: root
         group: root
         mode: '0644'
+
+- name: Un-Registering system with Red Hat
+  tags:
+    - remove
+  block:
+
+    - name: Register and subscribe the system
+      community.general.redhat_subscription:
+        username: "{{ customer_portal_username }}"
+        password: "{{ customer_portal_password }}"
+        state: absent
+        consumer_name: "{{ inventory_hostname }}"
+
+    - name: UN-Register the insights client
+      redhat.insights.insights_register:
+        state: absent
