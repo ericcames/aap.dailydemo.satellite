@@ -38,7 +38,7 @@
       tags:
         - create
       ansible.builtin.set_fact:
-        my_public_ip: "{{ ec2_vms.instances[0].public_ip_address }}"
+        my_private_ip: "{{ ec2_vms.instances[0].private_ip_address }}"
 
     - name: Include the vm role
       tags:
@@ -65,12 +65,6 @@
   gather_facts: true
 
   tasks:
-
-    - name: Print out my_public_ip
-      tags:
-        - create
-      ansible.builtin.debug:
-        var: hostvars['localhost']['my_public_ip']
 
     - name: Create local accounts
       tags:
