@@ -34,6 +34,13 @@
       ansible.builtin.debug:
         msg: "{{ ec2_vms.instances[0].public_ip_address }}"
 
+    - name: Set a stat for our ip address
+      tags:
+        - create
+      ansible.builtin.set_stats:
+        data:
+          my_public_ip: "{{ ec2_vms.instances[0].public_ip_address }}"
+
     - name: Include the vm role
       tags:
         - remove
@@ -59,6 +66,12 @@
   gather_facts: true
 
   tasks:
+
+    - name: Print out my_public_ip
+      tags:
+        - create
+      ansible.builtin.debug:
+        var: my_public_ip
 
     - name: Create local accounts
       tags:
