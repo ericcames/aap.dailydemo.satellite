@@ -15,12 +15,6 @@
         state: started
         enabled: true
 
-    - name: Enable the cockpit socket
-      ansible.builtin.systemd_service:
-        name: cockpit.socket
-        state: stopped
-        enabled: false
-
     - name: Making sure cockpit in not installed
       ansible.builtin.dnf:
         name:
