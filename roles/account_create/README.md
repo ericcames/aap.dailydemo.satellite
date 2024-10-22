@@ -13,7 +13,7 @@ Vaulted file in the format of files/user_list_example.yml
 Role Variables
 --------------
 ```
-user_list_vault: ames_user_list_vault.yml
+account_create_user_list_vault: ames_user_list_vault.yml
 ```
 Dependencies
 ------------
@@ -23,7 +23,7 @@ Example Playbook
 ```
 ---
 - name: Linux account creation
-  hosts: all
+  hosts: satellite
 
   roles:
 

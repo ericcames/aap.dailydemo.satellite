@@ -44,13 +44,41 @@
             cidr_ip: "0.0.0.0/0"
             rule_desc: allow all on port 22 secure shell
           - proto: tcp
+            ports: 80
+            cidr_ip: "0.0.0.0/0"
+            rule_desc: http
+          - proto: tcp
             ports: 443
             cidr_ip: "0.0.0.0/0"
             rule_desc: https
           - proto: tcp
-            ports: 8443
+            ports: 53
             cidr_ip: "0.0.0.0/0"
-            rule_desc: allow all on 8443
+            rule_desc: dns
+          - proto: udp
+            ports: 67
+            cidr_ip: "0.0.0.0/0"
+            rule_desc: dhcp
+          - proto: tcp
+            ports: 5000
+            cidr_ip: "0.0.0.0/0"
+            rule_desc: satellite 4
+          - proto: tcp
+            ports: 5647
+            cidr_ip: "0.0.0.0/0"
+            rule_desc: satellite 1
+          - proto: tcp
+            ports: 8000
+            cidr_ip: "0.0.0.0/0"
+            rule_desc: satellite 2
+          - proto: tcp
+            ports: 8140
+            cidr_ip: "0.0.0.0/0"
+            rule_desc: satellite 3
+          - proto: tcp
+            ports: 9090
+            cidr_ip: "0.0.0.0/0"
+            rule_desc: Cockpit
 
     - name: Create subnet
       register: my_vpc_subnet

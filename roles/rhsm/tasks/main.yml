@@ -1,0 +1,53 @@
+---
+- name: Registering system with Red Hat
+  tags:
+    - create
+  block:
+
+    - name: Register and subscribe the system
+      community.general.redhat_subscription:
+        username: "{{ customer_portal_username }}"
+        password: "{{ customer_portal_password }}"
+        state: "{{ rhsm_status }}"
+        consumer_name: "{{ inventory_hostname }}"
+        pool_ids:
+          - '{{ rhsm_pool_id }}'
+
+    - name: Disable all RHSM repositories
+      community.general.rhsm_repository:
+        name: '*'
+        state: disabled
+
+    - name: Enable all repositories needed for satellite on RHEL 8
+      with_items:
+        - rhel-8-for-x86_64-appstream-rpms
+        - rhel-8-for-x86_64-baseos-rpms
+        - satellite-{{ rhsm_satellite_version }}-for-rhel-8-x86_64-rpms
+        - satellite-maintenance-{{ rhsm_satellite_version }}-for-rhel-8-x86_64-rpms
+      when: ansible_distribution_major_version == '8' and rhsm_satellite_version >= 6.11
+      community.general.rhsm_repository:
+        name: '{{ item }}'
+        state: enabled
+
+    - name: Enable ruby:2.7 and postgresql:12 modules for RHEL 8
+      with_items:
+        - '@ruby:2.7'
+        - '@postgresql:12'
+      when: ansible_distribution_major_version == '8' and rhsm_satellite_version >= 6.11
+      ansible.builtin.dnf:
+        name: '{{ item }}'
+        state: present
+
+    # Workaround for @satellite:el8 until https://github.com/ansible/ansible/pull/76277 is resolved
+    - name: Enable satellite:el8 module for RHEL 8
+      with_items:
+        - pki-core.module
+        - pki-deps.module
+        - satellite.module
+      when: ansible_distribution_major_version == '8' and rhsm_satellite_version >= 6.11
+      ansible.builtin.copy:
+        dest: '/etc/dnf/modules.d/{{ item }}'
+        src: 'files/{{ item }}'
+        owner: root
+        group: root
+        mode: '0644'

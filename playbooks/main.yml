@@ -56,6 +56,7 @@
   hosts: satellite
   become: true
   become_user: root
+  gather_facts: true
 
   tasks:
 
@@ -63,10 +64,22 @@
       tags:
         - create
       ansible.builtin.include_role:
-        name: redhat_subscription_manager
+        name: rhsm
 
     - name: Create local accounts
       tags:
         - create
       ansible.builtin.include_role:
         name: account_create
+
+    - name: Post install
+      tags:
+        - create
+      ansible.builtin.include_role:
+        name: linux_post_install
+
+    - name: Install satellite
+      tags:
+        - create
+      ansible.builtin.include_role:
+        name: satellite

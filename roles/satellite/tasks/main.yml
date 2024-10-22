@@ -1,0 +1,39 @@
+---
+- name: Installing Red Hat Satellite
+  tags:
+    - create
+  block:
+
+    - name: Add hostname to /etc/hosts if defined
+      when: satellite_hostname is defined
+      ansible.builtin.lineinfile:
+        path: /etc/hosts
+        line: '{{ ansible_default_ipv4.address }}    {{ satellite_hostname }}'
+        insertbefore: BOF
+
+    - name: Install the latest version of Satellite
+      ansible.builtin.dnf:
+        name: satellite
+        state: installed
+
+    - name: Run the Satellite installer
+      register: result
+      changed_when: result.rc == 1
+      failed_when: result.rc > 1
+      ansible.builtin.command: |
+          satellite-installer --scenario satellite
+          --foreman-initial-organization {{ satellite_organization }}
+          --foreman-initial-location {{ satellite_location }}
+          --foreman-initial-admin-username {{ satellite_username }}
+          --foreman-initial-admin-password {{ satellite_password }}
+
+    - name: Check to see if we need a reboot
+      register: result
+      changed_when: result.rc == 1
+      failed_when: result.rc > 1
+      check_mode: false
+      ansible.builtin.command: needs-restarting -r
+
+    - name: Reboot server if needed
+      when: result.rc == 1
+      ansible.builtin.reboot:

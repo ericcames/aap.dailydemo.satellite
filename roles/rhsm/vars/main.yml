@@ -2,4 +2,6 @@
 # Use a Red Hat Customer Portal credential
 # customer_portal_username: mikey.mouse
 # customer_portal_password: redhat123
-redhat_subscription_manager_status: present
+rhsm_status: present
+rhsm_satellite_version: 6.15
+rhsm_pool_id: 2c94e9e691045e98019132f410313eae
