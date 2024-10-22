@@ -41,6 +41,12 @@
         data:
           my_public_ip: "{{ ec2_vms.instances[0].public_ip_address }}"
 
+    - name: Set a fact for our ip address
+      tags:
+        - create
+      ansible.builtin.set_fact:
+        my_public_ip: "{{ ec2_vms.instances[0].public_ip_address }}"
+
     - name: Include the vm role
       tags:
         - remove
