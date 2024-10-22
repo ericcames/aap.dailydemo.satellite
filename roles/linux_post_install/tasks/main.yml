@@ -4,6 +4,17 @@
     - create
   block:
 
+    - name: Install Chrony
+      ansible.builtin.dnf:
+        name: chrony
+        state: installed
+
+    - name: Enable Chrony
+      ansible.builtin.systemd_service:
+        name: chronyd
+        state: started
+        enabled: true
+
     - name: Patching my_packages
       register: dnf_patch
       ansible.builtin.dnf:
