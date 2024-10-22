@@ -58,16 +58,15 @@
     - remove
   block:
 
-    - name: Register and subscribe the system
+    - name: UN-Register and subscribe the system
       community.general.redhat_subscription:
         username: "{{ customer_portal_username }}"
         password: "{{ customer_portal_password }}"
         state: absent
         consumer_name: "{{ inventory_hostname }}"
 
-    - name: UN-Register the insights client
-      vars:
-        rhc_insights:
-          rhc_state: absent
-      ansible.builtin.import_role:
-        name: redhat.rhel_system_roles.rhc
+    - name: UN-Register Red Hat Insights
+      register: result
+      changed_when: result.rc == 1
+      failed_when: result.rc > 1
+      ansible.builtin.command: insights-client --unregister

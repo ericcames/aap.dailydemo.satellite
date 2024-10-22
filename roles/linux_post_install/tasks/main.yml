@@ -15,6 +15,18 @@
         state: started
         enabled: true
 
+    - name: Enable the cockpit socket
+      ansible.builtin.systemd_service:
+        name: cockpit.socket
+        state: stopped
+        enabled: false
+
+    - name: Making sure cockpit in not installed
+      ansible.builtin.dnf:
+        name:
+          - cockpit
+        state: absent
+
     - name: Patching my_packages
       register: dnf_patch
       ansible.builtin.dnf:
@@ -36,12 +48,6 @@
       failed_when: result.rc > 1
       ansible.builtin.command:
         cmd: insights-client
-
-    - name: Making sure all our software is installed
-      ansible.builtin.dnf:
-        name:
-          - cockpit
-        state: installed
 
     - name: Update the /etc/hosts file
       ansible.builtin.template:
@@ -118,12 +124,6 @@
         owner: root
         group: root
         mode: u+rw,g-wx,o-wx
-
-    - name: Enable the cockpit socket
-      ansible.builtin.systemd_service:
-        name: cockpit.socket
-        state: started
-        enabled: true
 
     - name: Check to see if we need a reboot
       register: reboot_required
