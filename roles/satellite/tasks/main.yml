@@ -14,8 +14,8 @@
       with_items:
         - rhel-8-for-x86_64-appstream-rpms
         - rhel-8-for-x86_64-baseos-rpms
-        - satellite-{{ rhsm_satellite_version }}-for-rhel-8-x86_64-rpms
-        - satellite-maintenance-{{ rhsm_satellite_version }}-for-rhel-8-x86_64-rpms
+        - satellite-{{ satellite_version }}-for-rhel-8-x86_64-rpms
+        - satellite-maintenance-{{ satellite_version }}-for-rhel-8-x86_64-rpms
       when: ansible_distribution_major_version == '8' and satellite_version >= 6.11
       community.general.rhsm_repository:
         name: '{{ item }}'
