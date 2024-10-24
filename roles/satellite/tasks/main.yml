@@ -4,6 +4,10 @@
     - create
   block:
 
+    - name: Include our user info
+      ansible.builtin.include_vars:
+        file: files/{{ satellite_user_list_vault }}
+
     - name: Ensure repositories are able to be managed by subscription-manager
       register: result
       changed_when: result.rc == 1
@@ -70,3 +74,17 @@
     - name: Reboot server if needed
       when: result.rc == 1
       ansible.builtin.reboot:
+
+    - name: Create the Satellite users
+      register: result
+      changed_when: result.rc == 1
+      failed_when: result.rc > 1
+      loop: "{{ users }}"
+      ansible.builtin.command: |
+          hammer user create
+          --auth-source-id {{ item['auth_source'] }}
+          --login {{ item['name'] }}
+          --mail {{ item['mail'] }}
+          --organization-ids {{ item['org_ids'] }}
+          --password {{ item['password'] }}
+          {{ item['admin_account'] }}

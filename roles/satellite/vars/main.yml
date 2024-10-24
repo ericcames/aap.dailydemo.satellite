@@ -4,3 +4,4 @@ satellite_password: PASSWORD
 satellite_organization: AmesCO
 satellite_location: California
 satellite_version: 6.15
+satellite_user_list_vault: ames_user_list_vault.yml

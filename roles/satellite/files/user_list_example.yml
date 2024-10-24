@@ -1,0 +1,20 @@
+---
+users:
+  - name: foobar
+    admin_account: ''
+    mail: foobar@example.com
+    password: Ansible-r0cks!
+    auth_source: 1
+    org_ids: AmesCO
+  - name: ansible-svc
+    admin_account: '--admin'
+    mail: ansible-svc@example.com
+    password: Ansible-r0cks!
+    auth_source: 1
+    org_ids: AmesCO
+  - name: jsmith
+    admin_account: ''
+    mail: jsmith@example.com
+    password: Ansible-r0cks!
+    auth_source: 1
+    org_ids: AmesCO
