@@ -87,4 +87,4 @@
           --mail {{ item['mail'] }}
           --organization-ids {{ item['org_ids'] }}
           --password {{ item['password'] }}
-          {{ item['admin_account'] }}
+          --admin {{ item['admin_account'] }}
