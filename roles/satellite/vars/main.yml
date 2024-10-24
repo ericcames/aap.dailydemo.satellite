@@ -3,3 +3,4 @@ satellite_username: USERNAME
 satellite_password: PASSWORD
 satellite_organization: AmesCO
 satellite_location: California
+satellite_version: 6.15
