@@ -1,16 +1,3 @@
-- name: Remove our server from Red Hat
-  hosts: satellite
-  become: true
-  become_user: root
-
-  tasks:
-
-    - name: Red Hat Subscription Manager
-      tags:
-        - remove
-      ansible.builtin.include_role:
-        name: rhsm
-
 - name: Satellite daily demo
   hosts: localhost
   connection: local
@@ -52,29 +39,6 @@
         - create
       ansible.builtin.set_fact:
         my_private_ip: "{{ ec2_vms.instances[0].private_ip_address }}"
-
-    - name: Include the vm role
-      tags:
-        - remove
-      ansible.builtin.include_role:
-        name: vm
-
-    - name: Include the vpc role
-      tags:
-        - remove
-      ansible.builtin.include_role:
-        name: vpc
-
-    - name: Include the inventory role
-      tags:
-        - remove
-      ansible.builtin.include_role:
-        name: inventory
-
-    - name: Refresh the inventory
-      tags:
-        - remove
-      ansible.builtin.meta: refresh_inventory
 
 - name: Do work on our new server
   hosts: satellite
