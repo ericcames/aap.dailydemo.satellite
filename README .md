@@ -47,7 +47,7 @@ satellite
 ```
 
 **The Cleanup Schedule**
-![alt text](https://github.com/ericcames/aap.dailydemo.satellite/blob/main/images/satellitecleanup.png "Satellite Daily Demo Cleanup")<br>
+![alt text](https://github.com/ericcames/aap.dailydemo.satellite/blob/main/images/satcleanup.png "Satellite Daily Demo Cleanup")<br>
 
 Day 2
 =========
