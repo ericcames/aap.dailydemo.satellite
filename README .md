@@ -33,9 +33,11 @@ remove
 **The Credentials Types**
 
 Red Hat Ansible Automation Platform<br>
-Satellite Machine Credential<br>
-![alt text](https://github.com/ericcames/aap.dailydemo.satellite/blob/main/images/satellitemachinecred.png "Machine Credential")<br>
+![alt text](https://github.com/ericcames/aap.dailydemo.satellite/blob/main/images/satrhapcred.png "")<br>
+Machine Credential<br>
 Amazon Web Services Credential<br>
+Vault<br>
+Red Hat Customer Portal<br>
 
 **The AAP Managed Inventory**
 
