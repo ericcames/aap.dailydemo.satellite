@@ -19,8 +19,9 @@ Day 1 - Infrastructure as code (IAC)
 **The playbooks**
 
 [Create Satellite](https://github.com/ericcames/aap.dailydemo.satellite/blob/main/playbooks/main-create.yml "main-create.yml")<br>
+![alt text](https://github.com/ericcames/aap.dailydemo.satellite/blob/main/images/satjobcreate.png "Create")<br>
 [Remove Satellite](https://github.com/ericcames/aap.dailydemo.satellite/blob/main/playbooks/main-remove.yml "main-remove.yml")<br>
-![alt text](https://github.com/ericcames/aap.dailydemo.satellite/blob/main/images/satjob.png "Create")<br>
+![alt text](https://github.com/ericcames/aap.dailydemo.satellite/blob/main/images/satjobremove.png "Remove")<br>
 
 Tags used:
 ```
