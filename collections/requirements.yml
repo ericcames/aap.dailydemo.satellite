@@ -8,10 +8,6 @@ collections:
     version: 3.0.0
   - name: ansible.controller
     version: 4.5.0
-  - name: servicenow.itsm
-    version: 2.4.0
-  - name: servicenow.servicenow
-    version: 1.0.6
   - name: community.mysql
     version: 3.8.0
   - name: community.general
