@@ -14,8 +14,8 @@ collections:
     version: 3.1.0
   # - name: community.mysql
   #   version: 3.8.0
-  # - name: community.general
-  #   version: 8.1.0
+  - name: community.general
+    version: 10.3.1
   - name: redhat.rhel_system_roles
     version: 1.88.9
   - name: redhat.insights
