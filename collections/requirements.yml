@@ -3,16 +3,20 @@ collections:
   - name: amazon.aws
     version: 7.2.0
   - name: ansible.posix
-    version: 1.5.4
+    version: 1.6.2
   - name: ansible.utils
-    version: 3.0.0
+    version: 5.1.2
   - name: ansible.controller
-    version: 4.5.0
-  - name: community.mysql
-    version: 3.8.0
-  - name: community.general
-    version: 8.1.0
+    version: 4.6.2
+  - name: ansible.platform
+    version: 2.5.3
+  - name: infra.aap_configuration
+    version: 3.1.0
+  # - name: community.mysql
+  #   version: 3.8.0
+  # - name: community.general
+  #   version: 8.1.0
   - name: redhat.rhel_system_roles
-    version: 1.23.0
+    version: 1.88.9
   - name: redhat.insights
     version: 1.3.0
