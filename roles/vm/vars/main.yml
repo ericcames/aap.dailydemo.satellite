@@ -4,7 +4,7 @@ vm_vpc_name: satellite-dailydemo
 vm_environment_tag: "Satellite"
 vm_user_name: eric.ames
 vm_subnet_name: "{{ vm_vpc_name }}_Subnet"
-vm_image: ami-059331b07252d84dd
+vm_image: ami-0f94618cb3c90e1f5
 vm_count: 1
 vm_region: us-west-1
 vm_assign_public_ip: true
