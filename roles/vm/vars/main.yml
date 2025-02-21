@@ -1,5 +1,5 @@
 ---
-vm_name: Satellite Daily Demo
+vm_name: Satellite
 vm_vpc_name: satellite-dailydemo
 vm_environment_tag: "Satellite"
 vm_user_name: eric.ames
