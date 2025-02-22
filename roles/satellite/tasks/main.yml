@@ -162,7 +162,6 @@
         password: "{{ satellite_password }}"
         server_url: "https://{{ inventory_hostname }}"
         name: "{{ satellite_sat6_fqdn }}"
-        hostgroup: my_satellite
         state: present
         validate_certs: false
 
