@@ -164,6 +164,8 @@
         name: "{{ satellite_sat6_fqdn }}"
         state: present
         validate_certs: false
+        organization: "{{ satellite_organization }}"
+        location: "{{ satellite_location }}"
 
     - name: "Create or update weekly RHEL sync plan"
       redhat.satellite.sync_plan:
