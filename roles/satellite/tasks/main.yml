@@ -133,14 +133,14 @@
         group: root
         mode: '0744'
 
-    - name: Load manifest into Satellite
-      register: result
-      changed_when: result.rc == 1
-      failed_when: result.rc > 1
-      ansible.builtin.command: |
-          hammer subscription upload
-          --file /root/{{ satellite_manifest }}
-          --organization {{ satellite_organization }}
+    # - name: Load manifest into Satellite
+    #   register: result
+    #   changed_when: result.rc == 1
+    #   failed_when: result.rc > 1
+    #   ansible.builtin.command: |
+    #       hammer subscription upload
+    #       --file /root/{{ satellite_manifest }}
+    #       --organization {{ satellite_organization }}
 
     - name: Adding a domain
       redhat.satellite.domain:
@@ -172,7 +172,7 @@
         password: "{{ satellite_password }}"
         server_url: "https://{{ inventory_hostname }}"
         name: "Weekly RHEL Sync"
-        organization: "Default Organization"
+        organization: "{{ satellite_organization }}"
         interval: "weekly"
         enabled: true
         sync_date: "2025-02-15 00:00:00 UTC"
@@ -184,7 +184,7 @@
         username: "{{ satellite_username }}"
         password: "{{ satellite_password }}"
         server_url: "https://{{ inventory_hostname }}"
-        name: "Red Hat Enterprise Linux Server 9"
+        name: "Red Hat Enterprise Linux Server"
         organization: "{{ satellite_organization }}"
         sync_plan: "Weekly RHEL Sync"
         state: present
@@ -198,7 +198,7 @@
         name: "EPEL 9 Everything x86_64"
         state: present
         content_type: "yum"
-        product: "Red Hat Enterprise Linux Server 9"
+        product: "Red Hat Enterprise Linux Server"
         organization: "{{ satellite_organization }}"
         url: "https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/"
         mirror_on_sync: true
