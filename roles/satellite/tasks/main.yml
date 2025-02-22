@@ -76,6 +76,7 @@
       ansible.builtin.reboot:
 
     - name: Create the Satellite users
+      no_log: true
       loop: "{{ users }}"
       redhat.satellite.user:
         username: "{{ satellite_username }}"
