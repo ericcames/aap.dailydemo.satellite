@@ -116,15 +116,6 @@
                 investigated and reported to the appropriate law enforcement agencies."
         validate_certs: false
 
-    # - name: Change the hostname
-    #   register: result
-    #   changed_when: result.rc == 1
-    #   failed_when: result.rc > 1
-    #   ansible.builtin.command: |
-    #       satellite-change-hostname {{ satellite_sat6_fqdn }}
-    #       --username {{ satellite_username }}
-    #       --pasword {{ satellite_password }}
-
     - name: Copy Manifest file
       ansible.builtin.copy:
         src: "files/{{ satellite_manifest }}"
@@ -133,14 +124,14 @@
         group: root
         mode: '0744'
 
-    # - name: Load manifest into Satellite
-    #   register: result
-    #   changed_when: result.rc == 1
-    #   failed_when: result.rc > 1
-    #   ansible.builtin.command: |
-    #       hammer subscription upload
-    #       --file /root/{{ satellite_manifest }}
-    #       --organization {{ satellite_organization }}
+    - name: Load manifest into Satellite
+      register: result
+      changed_when: result.rc == 1
+      failed_when: result.rc > 1
+      ansible.builtin.command: |
+          hammer subscription upload
+          --file /root/{{ satellite_manifest }}
+          --organization {{ satellite_organization }}
 
     - name: Adding a domain
       redhat.satellite.domain:
@@ -155,17 +146,6 @@
         server_url: "https://{{ inventory_hostname }}"
         state: present
         validate_certs: false
-
-    # - name: "Create a host"
-    #   redhat.satellite.host:
-    #     username: "{{ satellite_username }}"
-    #     password: "{{ satellite_password }}"
-    #     server_url: "https://{{ inventory_hostname }}"
-    #     name: "{{ satellite_sat6_fqdn }}"
-    #     state: present
-    #     validate_certs: false
-    #     organization: "{{ satellite_organization }}"
-    #     location: "{{ satellite_location }}"
 
     - name: "Create or update weekly RHEL sync plan"
       redhat.satellite.sync_plan:
