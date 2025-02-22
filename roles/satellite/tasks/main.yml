@@ -141,3 +141,35 @@
           hammer subscription upload
           --file /root/{{ satellite_manifest }}
           --organization {{ satellite_organization }}
+
+    - name: Adding a domain
+      redhat.satellite.domain:
+        name: "kona.services"
+        description: "Kona Services Rocks!"
+        locations:
+          - "{{ satellite_location }}"
+        organizations:
+          - "{{ satellite_organization }}"
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
+        server_url: "https://{{ inventory_hostname }}"
+        state: present
+
+    - name: "Create a host"
+      redhat.satellite.host:
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
+        server_url: "https://{{ inventory_hostname }}"
+        name: "{{ satellite_sat6_fqdn }}"
+        hostgroup: my_satellite
+        state: present
+
+    - name: "Create RHEL 9 product with a sync plan"
+      redhat.satellite.product:
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
+        server_url: "https://{{ inventory_hostname }}"
+        name: "Red Hat Enterprise Linux Server 9"
+        organization: "{{ satellite_organization }}"
+        sync_plan: "RHEL repos sync"
+        state: present
