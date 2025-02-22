@@ -90,7 +90,24 @@
         timezone: "{{ item['timezone'] }}"
         state: present
         validate_certs: false
-        server_url: "{{ my_public_dns_name }}"
+        server_url: "https://{{ inventory_hostname }}"
+
+    - name: Delete Host upon unregister
+      redhat.satellite.setting:
+        server_url: "https://{{ inventory_hostname }}"
+        name: "Delete Host upon unregister"
+        value: "Yes"
+        validate_certs: false
+
+    - name: Login page footer text
+      redhat.satellite.setting:
+        server_url: "https://{{ inventory_hostname }}"
+        name: "Login page footer text"
+        value: "THIS SYSTEM IS PROVIDED FOR USE BY AUTHORIZED USERS ONLY. ALERT! You are entering into a
+                secured area! Your IP, Login Time, Username has been noted and has been sent to the server
+                administrator! All activities on this system are logged. Unauthorized access will be fully
+                investigated and reported to the appropriate law enforcement agencies."
+        validate_certs: false
 
     # - name: Change the hostname
     #   register: result
