@@ -88,7 +88,7 @@
         admin: "{{ item['admin_account'] }}"
         user_password: "{{ item['password'] }}"
         default_organization: "{{ item['org_ids'] }}"
-        auth_source: "{{ item['auth_source'] }}"
+        auth_source: Internal
         timezone: "{{ item['timezone'] }}"
         state: present
         validate_certs: false
