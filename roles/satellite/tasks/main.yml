@@ -88,3 +88,29 @@
           --organization-title {{ item['org_ids'] }}
           --password {{ item['password'] }}
           --admin {{ item['admin_account'] }}
+
+    - name: Change the hostname
+      register: result
+      changed_when: result.rc == 1
+      failed_when: result.rc > 1
+      ansible.builtin.command: |
+          satellite-change-hostname {{ satellite_sat6_fqdn }}
+          --username {{ satellite_username }}
+          --pasword {{ satellite_password }}
+
+    - name: Copy Manifest file
+      ansible.builtin.copy:
+        src: "files/{{ satellite_manifest }}"
+        dest: /root/
+        owner: root
+        group: root
+        mode: '0744'
+
+    - name: Load manifest into Satellite
+      register: result
+      changed_when: result.rc == 1
+      failed_when: result.rc > 1
+      ansible.builtin.command: |
+          hammer subscription upload
+          --file /root/{{ satellite_manifest }}
+          --organization {{ satellite_organization }}
