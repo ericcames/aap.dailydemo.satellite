@@ -3,6 +3,6 @@
 
 {% for host in groups['satellite'] %}
 {% if 'fqdn' in hostvars[host]['ansible_facts'] or 'hostname' in hostvars[host]['ansible_facts'] %}
-{{ hostvars['localhost']['my_private_ip'] }} {{ hostvars[host]['ansible_facts']['fqdn'] | default('') }} {{ hostvars[host]['ansible_facts']['hostname'] | default('') }}
+{{ hostvars['localhost']['my_private_ip'] }} {{ hostvars[host]['ansible_facts']['nodename'] | default('') }} {{ hostvars[host]['ansible_facts']['hostname'] | default('') }}
 {% endif %}
 {% endfor %}
