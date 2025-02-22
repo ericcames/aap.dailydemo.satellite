@@ -96,6 +96,8 @@
 
     - name: Delete Host upon unregister to yes
       redhat.satellite.setting:
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
         server_url: "https://{{ inventory_hostname }}"
         name: "Delete Host upon unregister"
         value: "Yes"
@@ -103,6 +105,8 @@
 
     - name: Login page footer text setting legal message
       redhat.satellite.setting:
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
         server_url: "https://{{ inventory_hostname }}"
         name: "Login page footer text"
         value: "THIS SYSTEM IS PROVIDED FOR USE BY AUTHORIZED USERS ONLY. ALERT! You are entering into a
