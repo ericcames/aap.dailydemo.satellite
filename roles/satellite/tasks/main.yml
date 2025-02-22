@@ -92,14 +92,14 @@
         validate_certs: false
         server_url: "https://{{ inventory_hostname }}"
 
-    - name: Delete Host upon unregister
+    - name: Delete Host upon unregister to yes
       redhat.satellite.setting:
         server_url: "https://{{ inventory_hostname }}"
         name: "Delete Host upon unregister"
         value: "Yes"
         validate_certs: false
 
-    - name: Login page footer text
+    - name: Login page footer text setting legal message
       redhat.satellite.setting:
         server_url: "https://{{ inventory_hostname }}"
         name: "Login page footer text"
