@@ -154,6 +154,7 @@
         password: "{{ satellite_password }}"
         server_url: "https://{{ inventory_hostname }}"
         state: present
+        validate_certs: false
 
     - name: "Create a host"
       redhat.satellite.host:
@@ -163,6 +164,20 @@
         name: "{{ satellite_sat6_fqdn }}"
         hostgroup: my_satellite
         state: present
+        validate_certs: false
+
+    - name: "Create or update weekly RHEL sync plan"
+      redhat.satellite.sync_plan:
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
+        server_url: "https://{{ inventory_hostname }}"
+        name: "Weekly RHEL Sync"
+        organization: "Default Organization"
+        interval: "weekly"
+        enabled: true
+        sync_date: "2025-02-15 00:00:00 UTC"
+        state: present
+        validate_certs: false
 
     - name: "Create RHEL 9 product with a sync plan"
       redhat.satellite.product:
@@ -171,5 +186,21 @@
         server_url: "https://{{ inventory_hostname }}"
         name: "Red Hat Enterprise Linux Server 9"
         organization: "{{ satellite_organization }}"
-        sync_plan: "RHEL repos sync"
+        sync_plan: "Weekly RHEL Sync"
         state: present
+        validate_certs: false
+
+    - name: "Create repository"
+      redhat.satellite.repository:
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
+        server_url: "https://{{ inventory_hostname }}"
+        name: "EPEL 9 Everything x86_64"
+        state: present
+        content_type: "yum"
+        product: "Red Hat Enterprise Linux Server 9"
+        organization: "{{ satellite_organization }}"
+        url: "https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/"
+        mirror_on_sync: true
+        download_policy: immediate
+        validate_certs: false
