@@ -190,7 +190,7 @@
         state: present
         validate_certs: false
 
-    - name: "Create repository"
+    - name: "Create EPEL 9 x86 repository"
       redhat.satellite.repository:
         username: "{{ satellite_username }}"
         password: "{{ satellite_password }}"
