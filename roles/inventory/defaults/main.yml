@@ -1,5 +1,5 @@
 ---
-inventory_vm_name: Satellite Daily Demo
+inventory_vm_name: Satellite
 # Use a Red Hat Ansible Automation Platform credential type
 # CONTROLLER_HOST: example.com
 # CONTROLLER_USERNAME: mickey.mouse
