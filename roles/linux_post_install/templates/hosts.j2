@@ -6,5 +6,3 @@
 {{ hostvars['localhost']['my_private_ip'] }} {{ hostvars[host]['ansible_facts']['fqdn'] | default('') }} {{ hostvars[host]['ansible_facts']['hostname'] | default('') }}
 {% endif %}
 {% endfor %}
-
-{{ hostvars['localhost']['my_public_ip'] }} sat.kona.services sat }}
