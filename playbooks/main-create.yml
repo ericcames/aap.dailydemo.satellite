@@ -46,6 +46,12 @@
       ansible.builtin.set_fact:
         my_public_ip: "{{ ec2_vms.instances[0].public_ip_address }}"
 
+    - name: Set a fact for our public dns name
+      tags:
+        - create
+      ansible.builtin.set_fact:
+        my_public_dns_name: "https://{{ ec2_vms.instances[0].public_dns_name }}"
+
 - name: Do work on our new server
   hosts: satellite
   become: true
