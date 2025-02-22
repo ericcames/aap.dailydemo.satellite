@@ -78,6 +78,8 @@
     - name: Create the Satellite users
       loop: "{{ users }}"
       redhat.satellite.user:
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
         name: "{{ item['name'] }}"
         firstname: "{{ item['firstname'] }}"
         lastname: "{{ item['lastname'] }}"
