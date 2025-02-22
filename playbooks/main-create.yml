@@ -34,11 +34,17 @@
       ansible.builtin.debug:
         msg: "{{ ec2_vms.instances[0].public_ip_address }}"
 
-    - name: Set a fact for our ip address
+    - name: Set a fact for our private ip address
       tags:
         - create
       ansible.builtin.set_fact:
         my_private_ip: "{{ ec2_vms.instances[0].private_ip_address }}"
+
+    - name: Set a fact for our public ip address
+      tags:
+        - create
+      ansible.builtin.set_fact:
+        my_public_ip: "{{ ec2_vms.instances[0].public_ip_address }}"
 
 - name: Do work on our new server
   hosts: satellite
