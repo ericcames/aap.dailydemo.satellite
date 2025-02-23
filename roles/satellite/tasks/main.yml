@@ -124,15 +124,15 @@
     #     group: root
     #     mode: '0744'
 
-    - name: "Upload the RHEL developer edition manifest"
-      redhat.satellite.subscription_manifest:
-        username: "{{ satellite_username }}"
-        password: "{{ satellite_password }}"
-        server_url: "https://{{ inventory_hostname }}"
-        organization: "{{ satellite_organization }}"
-        state: present
-        manifest_path: "/root/{{ satellite_manifest }}"
-        validate_certs: false
+    # - name: "Upload the RHEL developer edition manifest"
+    #   redhat.satellite.subscription_manifest:
+    #     username: "{{ satellite_username }}"
+    #     password: "{{ satellite_password }}"
+    #     server_url: "https://{{ inventory_hostname }}"
+    #     organization: "{{ satellite_organization }}"
+    #     state: present
+    #     manifest_path: "/root/{{ satellite_manifest }}"
+    #     validate_certs: false
 
     # - name: Adding a domain
     #   redhat.satellite.domain:
@@ -161,14 +161,14 @@
     #     state: present
     #     validate_certs: false
 
-    - name: "Create Development content view"
-      redhat.satellite.content_view:
-        username: "{{ satellite_username }}"
-        password: "{{ satellite_password }}"
-        server_url: "https://{{ inventory_hostname }}"
-        name: "Development"
-        organization: "{{ satellite_organization }}"
-        validate_certs: false
+    # - name: "Create Development content view"
+    #   redhat.satellite.content_view:
+    #     username: "{{ satellite_username }}"
+    #     password: "{{ satellite_password }}"
+    #     server_url: "https://{{ inventory_hostname }}"
+    #     name: "Development"
+    #     organization: "{{ satellite_organization }}"
+    #     validate_certs: false
 
     - name: "Create client activation key"
       redhat.satellite.activation_key:
