@@ -8,121 +8,121 @@
       ansible.builtin.include_vars:
         file: files/{{ satellite_user_list_vault }}
 
-    - name: Ensure repositories are able to be managed by subscription-manager
-      register: result
-      changed_when: result.rc == 1
-      failed_when: result.rc > 1
-      ansible.builtin.command: subscription-manager config --rhsm.manage_repos=1
+    # - name: Ensure repositories are able to be managed by subscription-manager
+    #   register: result
+    #   changed_when: result.rc == 1
+    #   failed_when: result.rc > 1
+    #   ansible.builtin.command: subscription-manager config --rhsm.manage_repos=1
 
-    - name: Enable all repositories needed for satellite on RHEL 8
-      with_items:
-        - rhel-8-for-x86_64-appstream-rpms
-        - rhel-8-for-x86_64-baseos-rpms
-        - satellite-{{ satellite_version }}-for-rhel-8-x86_64-rpms
-        - satellite-maintenance-{{ satellite_version }}-for-rhel-8-x86_64-rpms
-      when: ansible_distribution_major_version == '8' and satellite_version >= 6.11
-      community.general.rhsm_repository:
-        name: '{{ item }}'
-        state: enabled
+    # - name: Enable all repositories needed for satellite on RHEL 8
+    #   with_items:
+    #     - rhel-8-for-x86_64-appstream-rpms
+    #     - rhel-8-for-x86_64-baseos-rpms
+    #     - satellite-{{ satellite_version }}-for-rhel-8-x86_64-rpms
+    #     - satellite-maintenance-{{ satellite_version }}-for-rhel-8-x86_64-rpms
+    #   when: ansible_distribution_major_version == '8' and satellite_version >= 6.11
+    #   community.general.rhsm_repository:
+    #     name: '{{ item }}'
+    #     state: enabled
 
-    - name: Enable ruby:2.7 and postgresql:12 modules for RHEL 8
-      with_items:
-        - '@ruby:2.7'
-        - '@postgresql:12'
-      when: ansible_distribution_major_version == '8' and satellite_version >= 6.11
-      ansible.builtin.dnf:
-        name: '{{ item }}'
-        state: present
+    # - name: Enable ruby:2.7 and postgresql:12 modules for RHEL 8
+    #   with_items:
+    #     - '@ruby:2.7'
+    #     - '@postgresql:12'
+    #   when: ansible_distribution_major_version == '8' and satellite_version >= 6.11
+    #   ansible.builtin.dnf:
+    #     name: '{{ item }}'
+    #     state: present
 
-    # Workaround for @satellite:el8 until https://github.com/ansible/ansible/pull/76277 is resolved
-    - name: Enable satellite:el8 module for RHEL 8
-      with_items:
-        - pki-core.module
-        - pki-deps.module
-        - satellite.module
-      when: ansible_distribution_major_version == '8' and satellite_version >= 6.11
-      ansible.builtin.copy:
-        dest: '/etc/dnf/modules.d/{{ item }}'
-        src: 'files/{{ item }}'
-        owner: root
-        group: root
-        mode: '0644'
+    # # Workaround for @satellite:el8 until https://github.com/ansible/ansible/pull/76277 is resolved
+    # - name: Enable satellite:el8 module for RHEL 8
+    #   with_items:
+    #     - pki-core.module
+    #     - pki-deps.module
+    #     - satellite.module
+    #   when: ansible_distribution_major_version == '8' and satellite_version >= 6.11
+    #   ansible.builtin.copy:
+    #     dest: '/etc/dnf/modules.d/{{ item }}'
+    #     src: 'files/{{ item }}'
+    #     owner: root
+    #     group: root
+    #     mode: '0644'
 
-    - name: Install the latest version of Satellite
-      ansible.builtin.dnf:
-        name: satellite
-        state: installed
+    # - name: Install the latest version of Satellite
+    #   ansible.builtin.dnf:
+    #     name: satellite
+    #     state: installed
 
-    - name: Run the Satellite installer
-      register: result
-      changed_when: result.rc == 1
-      failed_when: result.rc > 1
-      ansible.builtin.command: |
-          satellite-installer --scenario satellite
-          --foreman-initial-organization {{ satellite_organization }}
-          --foreman-initial-location {{ satellite_location }}
-          --foreman-initial-admin-username {{ satellite_username }}
-          --foreman-initial-admin-password {{ satellite_password }}
+    # - name: Run the Satellite installer
+    #   register: result
+    #   changed_when: result.rc == 1
+    #   failed_when: result.rc > 1
+    #   ansible.builtin.command: |
+    #       satellite-installer --scenario satellite
+    #       --foreman-initial-organization {{ satellite_organization }}
+    #       --foreman-initial-location {{ satellite_location }}
+    #       --foreman-initial-admin-username {{ satellite_username }}
+    #       --foreman-initial-admin-password {{ satellite_password }}
 
-    - name: Check to see if we need a reboot
-      register: result
-      changed_when: result.rc == 1
-      failed_when: result.rc > 1
-      check_mode: false
-      ansible.builtin.command: needs-restarting -r
+    # - name: Check to see if we need a reboot
+    #   register: result
+    #   changed_when: result.rc == 1
+    #   failed_when: result.rc > 1
+    #   check_mode: false
+    #   ansible.builtin.command: needs-restarting -r
 
-    - name: Reboot server if needed
-      when: result.rc == 1
-      ansible.builtin.reboot:
+    # - name: Reboot server if needed
+    #   when: result.rc == 1
+    #   ansible.builtin.reboot:
 
-    - name: Create the Satellite users
-      no_log: true
-      loop: "{{ users }}"
-      redhat.satellite.user:
-        username: "{{ satellite_username }}"
-        password: "{{ satellite_password }}"
-        name: "{{ item['name'] }}"
-        firstname: "{{ item['firstname'] }}"
-        lastname: "{{ item['lastname'] }}"
-        mail: "{{ item['mail'] }}"
-        description: "Tell us about yourself :-)"
-        admin: "{{ item['admin_account'] }}"
-        user_password: "{{ item['password'] }}"
-        default_organization: "{{ item['org_ids'] }}"
-        auth_source: Internal
-        timezone: "{{ item['timezone'] }}"
-        state: present
-        validate_certs: false
-        server_url: "https://{{ inventory_hostname }}"
+    # - name: Create the Satellite users
+    #   no_log: true
+    #   loop: "{{ users }}"
+    #   redhat.satellite.user:
+    #     username: "{{ satellite_username }}"
+    #     password: "{{ satellite_password }}"
+    #     name: "{{ item['name'] }}"
+    #     firstname: "{{ item['firstname'] }}"
+    #     lastname: "{{ item['lastname'] }}"
+    #     mail: "{{ item['mail'] }}"
+    #     description: "Tell us about yourself :-)"
+    #     admin: "{{ item['admin_account'] }}"
+    #     user_password: "{{ item['password'] }}"
+    #     default_organization: "{{ item['org_ids'] }}"
+    #     auth_source: Internal
+    #     timezone: "{{ item['timezone'] }}"
+    #     state: present
+    #     validate_certs: false
+    #     server_url: "https://{{ inventory_hostname }}"
 
-    - name: Delete Host upon unregister to yes
-      redhat.satellite.setting:
-        username: "{{ satellite_username }}"
-        password: "{{ satellite_password }}"
-        server_url: "https://{{ inventory_hostname }}"
-        name: "Delete Host upon unregister"
-        value: "Yes"
-        validate_certs: false
+    # - name: Delete Host upon unregister to yes
+    #   redhat.satellite.setting:
+    #     username: "{{ satellite_username }}"
+    #     password: "{{ satellite_password }}"
+    #     server_url: "https://{{ inventory_hostname }}"
+    #     name: "Delete Host upon unregister"
+    #     value: "Yes"
+    #     validate_certs: false
 
-    - name: Login page footer text setting legal message
-      redhat.satellite.setting:
-        username: "{{ satellite_username }}"
-        password: "{{ satellite_password }}"
-        server_url: "https://{{ inventory_hostname }}"
-        name: "Login page footer text"
-        value: "THIS SYSTEM IS PROVIDED FOR USE BY AUTHORIZED USERS ONLY. ALERT! You are entering into a
-                secured area! Your IP, Login Time, Username has been noted and has been sent to the server
-                administrator! All activities on this system are logged. Unauthorized access will be fully
-                investigated and reported to the appropriate law enforcement agencies."
-        validate_certs: false
+    # - name: Login page footer text setting legal message
+    #   redhat.satellite.setting:
+    #     username: "{{ satellite_username }}"
+    #     password: "{{ satellite_password }}"
+    #     server_url: "https://{{ inventory_hostname }}"
+    #     name: "Login page footer text"
+    #     value: "THIS SYSTEM IS PROVIDED FOR USE BY AUTHORIZED USERS ONLY. ALERT! You are entering into a
+    #             secured area! Your IP, Login Time, Username has been noted and has been sent to the server
+    #             administrator! All activities on this system are logged. Unauthorized access will be fully
+    #             investigated and reported to the appropriate law enforcement agencies."
+    #     validate_certs: false
 
-    - name: Copy Manifest file
-      ansible.builtin.copy:
-        src: "files/{{ satellite_manifest }}"
-        dest: /root/
-        owner: root
-        group: root
-        mode: '0744'
+    # - name: Copy Manifest file
+    #   ansible.builtin.copy:
+    #     src: "files/{{ satellite_manifest }}"
+    #     dest: /root/
+    #     owner: root
+    #     group: root
+    #     mode: '0744'
 
     - name: "Upload the RHEL developer edition manifest"
       redhat.satellite.subscription_manifest:
@@ -143,32 +143,32 @@
     #       --file /root/{{ satellite_manifest }}
     #       --organization {{ satellite_organization }}
 
-    - name: Adding a domain
-      redhat.satellite.domain:
-        name: "kona.services"
-        description: "Kona Services Rocks!"
-        locations:
-          - "{{ satellite_location }}"
-        organizations:
-          - "{{ satellite_organization }}"
-        username: "{{ satellite_username }}"
-        password: "{{ satellite_password }}"
-        server_url: "https://{{ inventory_hostname }}"
-        state: present
-        validate_certs: false
+    # - name: Adding a domain
+    #   redhat.satellite.domain:
+    #     name: "kona.services"
+    #     description: "Kona Services Rocks!"
+    #     locations:
+    #       - "{{ satellite_location }}"
+    #     organizations:
+    #       - "{{ satellite_organization }}"
+    #     username: "{{ satellite_username }}"
+    #     password: "{{ satellite_password }}"
+    #     server_url: "https://{{ inventory_hostname }}"
+    #     state: present
+    #     validate_certs: false
 
-    - name: "Create or update weekly RHEL sync plan"
-      redhat.satellite.sync_plan:
-        username: "{{ satellite_username }}"
-        password: "{{ satellite_password }}"
-        server_url: "https://{{ inventory_hostname }}"
-        name: "Weekly RHEL Sync"
-        organization: "{{ satellite_organization }}"
-        interval: "weekly"
-        enabled: true
-        sync_date: "2025-02-15 00:00:00 UTC"
-        state: present
-        validate_certs: false
+    # - name: "Create or update weekly RHEL sync plan"
+    #   redhat.satellite.sync_plan:
+    #     username: "{{ satellite_username }}"
+    #     password: "{{ satellite_password }}"
+    #     server_url: "https://{{ inventory_hostname }}"
+    #     name: "Weekly RHEL Sync"
+    #     organization: "{{ satellite_organization }}"
+    #     interval: "weekly"
+    #     enabled: true
+    #     sync_date: "2025-02-15 00:00:00 UTC"
+    #     state: present
+    #     validate_certs: false
 
     - name: "Create Development content view"
       redhat.satellite.content_view:
@@ -190,42 +190,41 @@
         content_view: 'Development'
         validate_certs: false
 
-    # - name: "Create RHEL 9 product with a sync plan"
-    #   redhat.satellite.product:
-    #     username: "{{ satellite_username }}"
-    #     password: "{{ satellite_password }}"
-    #     server_url: "https://{{ inventory_hostname }}"
-    #     name: "Red Hat Enterprise Linux Server"
-    #     organization: "{{ satellite_organization }}"
-    #     sync_plan: "Weekly RHEL Sync"
-    #     state: present
-    #     validate_certs: false
+    - name: "Create RHEL product"
+      redhat.satellite.product:
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
+        server_url: "https://{{ inventory_hostname }}"
+        name: "Red Hat Enterprise Linux Server"
+        organization: "{{ satellite_organization }}"
+        state: present
+        validate_certs: false
 
-    # - name: "Create EPEL 9 x86 repository"
-    #   redhat.satellite.repository:
-    #     username: "{{ satellite_username }}"
-    #     password: "{{ satellite_password }}"
-    #     server_url: "https://{{ inventory_hostname }}"
-    #     name: "EPEL 9 Everything x86_64"
-    #     state: present
-    #     content_type: "yum"
-    #     product: "Red Hat Enterprise Linux Server"
-    #     organization: "{{ satellite_organization }}"
-    #     url: "https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/"
-    #     mirror_on_sync: true
-    #     download_policy: immediate
-    #     validate_certs: false
+    - name: "Create EPEL 9 x86 repository"
+      redhat.satellite.repository:
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
+        server_url: "https://{{ inventory_hostname }}"
+        name: "EPEL 9 Everything x86_64"
+        state: present
+        content_type: "yum"
+        product: "Red Hat Enterprise Linux Server"
+        organization: "{{ satellite_organization }}"
+        url: "https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/"
+        mirror_on_sync: true
+        download_policy: immediate
+        validate_certs: false
 
-    # - name: "Enable RHEL 9 RPMs repositories"
-    #   redhat.satellite.repository_set:
-    #     username: "{{ satellite_username }}"
-    #     password: "{{ satellite_password }}"
-    #     server_url: "https://{{ inventory_hostname }}"
-    #     name: "Red Hat Enterprise Linux 9 for x86_64 - BaseOS (RPMs)"
-    #     organization: "{{ satellite_organization }}"
-    #     product: "Red Hat Enterprise Linux Server"
-    #     repositories:
-    #       - releasever: "9"
-    #         basearch: "x86_64"
-    #     state: enabled
-    #     validate_certs: false
+    - name: "Enable RHEL 9 RPMs repositories"
+      redhat.satellite.repository_set:
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
+        server_url: "https://{{ inventory_hostname }}"
+        name: "Red Hat Enterprise Linux 9 for x86_64 - BaseOS (RPMs)"
+        organization: "{{ satellite_organization }}"
+        product: "Red Hat Enterprise Linux Server"
+        repositories:
+          - releasever: "9"
+            basearch: "x86_64"
+        state: enabled
+        validate_certs: false
