@@ -134,15 +134,6 @@
         manifest_path: "/root/{{ satellite_manifest }}"
         validate_certs: false
 
-    # - name: Load manifest into Satellite
-    #   register: result
-    #   changed_when: result.rc == 1
-    #   failed_when: result.rc > 1
-    #   ansible.builtin.command: |
-    #       hammer subscription upload
-    #       --file /root/{{ satellite_manifest }}
-    #       --organization {{ satellite_organization }}
-
     # - name: Adding a domain
     #   redhat.satellite.domain:
     #     name: "kona.services"
@@ -186,8 +177,6 @@
         server_url: "https://{{ inventory_hostname }}"
         name: "RHEL9 Dev"
         organization: "{{ satellite_organization }}"
-        lifecycle_environment: "Library"
-        content_view: 'Development'
         validate_certs: false
 
     - name: "Create RHEL product"
