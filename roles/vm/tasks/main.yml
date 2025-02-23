@@ -56,7 +56,7 @@
         tag_value: "{{ item['instance_id'] }}"
         release_on_disassociation: true
         tags:
-          Environment: "{{ vm_vpc_name }}"
+          Environment: "{{ vm_environment_tag }}"
           AlwaysUp: "{{ vm_alwaysup }}"
           Createdby: Ansible Controller
           Contact: "{{ vm_my_email_address }}"
