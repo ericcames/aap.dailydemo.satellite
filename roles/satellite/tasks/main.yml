@@ -124,14 +124,24 @@
         group: root
         mode: '0744'
 
-    - name: Load manifest into Satellite
-      register: result
-      changed_when: result.rc == 1
-      failed_when: result.rc > 1
-      ansible.builtin.command: |
-          hammer subscription upload
-          --file /root/{{ satellite_manifest }}
-          --organization {{ satellite_organization }}
+    - name: "Upload the RHEL developer edition manifest"
+      redhat.satellite.subscription_manifest:
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
+        server_url: "https://{{ inventory_hostname }}"
+        organization: "{{ satellite_organization }}"
+        state: present
+        manifest_path: "/root/{{ satellite_manifest }}"
+        validate_certs: false
+
+    # - name: Load manifest into Satellite
+    #   register: result
+    #   changed_when: result.rc == 1
+    #   failed_when: result.rc > 1
+    #   ansible.builtin.command: |
+    #       hammer subscription upload
+    #       --file /root/{{ satellite_manifest }}
+    #       --organization {{ satellite_organization }}
 
     - name: Adding a domain
       redhat.satellite.domain:
@@ -158,6 +168,26 @@
         enabled: true
         sync_date: "2025-02-15 00:00:00 UTC"
         state: present
+        validate_certs: false
+
+    - name: "Create Development content view"
+      redhat.satellite.content_view:
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
+        server_url: "https://{{ inventory_hostname }}"
+        name: "Development"
+        organization: "{{ satellite_organization }}"
+        validate_certs: false
+
+    - name: "Create client activation key"
+      redhat.satellite.activation_key:
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
+        server_url: "https://{{ inventory_hostname }}"
+        name: "RHEL9 Dev"
+        organization: "{{ satellite_organization }}"
+        lifecycle_environment: "Library"
+        content_view: 'Development'
         validate_certs: false
 
     # - name: "Create RHEL 9 product with a sync plan"
