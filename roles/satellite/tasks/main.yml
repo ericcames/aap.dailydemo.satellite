@@ -8,6 +8,10 @@
       ansible.builtin.include_vars:
         file: files/{{ satellite_user_list_vault }}
 
+    - name: Include our Satellite settings
+      ansible.builtin.include_vars:
+        file: files/satellite_settings.yml
+
     # - name: Ensure repositories are able to be managed by subscription-manager
     #   register: result
     #   changed_when: result.rc == 1
@@ -95,14 +99,15 @@
     #     validate_certs: false
     #     server_url: "https://{{ inventory_hostname }}"
 
-    # - name: Delete Host upon unregister to yes
-    #   redhat.satellite.setting:
-    #     username: "{{ satellite_username }}"
-    #     password: "{{ satellite_password }}"
-    #     server_url: "https://{{ inventory_hostname }}"
-    #     name: "Delete Host upon unregister"
-    #     value: "Yes"
-    #     validate_certs: false
+    - name: My Satellite settings
+      loop: "{{ satellite_settings }}"
+      redhat.satellite.setting:
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
+        server_url: "https://{{ inventory_hostname }}"
+        name: "{{ item['name'] }}"
+        value: "{{ item['value'] }}"
+        validate_certs: false
 
     # - name: Login page footer text setting legal message
     #   redhat.satellite.setting:
