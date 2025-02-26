@@ -171,7 +171,7 @@
         username: "{{ satellite_username }}"
         password: "{{ satellite_password }}"
         server_url: "https://{{ inventory_hostname }}"
-        name: "Development"
+        name: "RHEL9 Hosts"
         organization: "{{ satellite_organization }}"
         validate_certs: false
 
