@@ -4,6 +4,10 @@
     - create
   block:
 
+    - name: Setting the hostname to the public hostname
+      ansible.builtin.hostname:
+        name: "{{ satellite_sat6_fqdn }}"
+
     - name: Register and subscribe the system
       community.general.redhat_subscription:
         username: "{{ customer_portal_username }}"

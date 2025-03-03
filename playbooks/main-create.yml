@@ -57,6 +57,8 @@
   become: true
   become_user: root
   gather_facts: true
+  vars:
+    satellite_sat6_fqdn: sat.kona.services
 
   tasks:
 
@@ -78,8 +80,8 @@
       ansible.builtin.include_role:
         name: linux_post_install
 
-    - name: Install satellite
-      tags:
-        - create
-      ansible.builtin.include_role:
-        name: satellite
+    # - name: Install satellite
+    #   tags:
+    #     - create
+    #   ansible.builtin.include_role:
+    #     name: satellite
