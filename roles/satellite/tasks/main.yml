@@ -12,92 +12,92 @@
       ansible.builtin.include_vars:
         file: files/satellite_settings.yml
 
-    - name: Ensure repositories are able to be managed by subscription-manager
-      register: result
-      changed_when: result.rc == 1
-      failed_when: result.rc > 1
-      ansible.builtin.command: subscription-manager config --rhsm.manage_repos=1
+    # - name: Ensure repositories are able to be managed by subscription-manager
+    #   register: result
+    #   changed_when: result.rc == 1
+    #   failed_when: result.rc > 1
+    #   ansible.builtin.command: subscription-manager config --rhsm.manage_repos=1
 
-    - name: Enable all repositories needed for satellite on RHEL 8
-      with_items:
-        - rhel-8-for-x86_64-appstream-rpms
-        - rhel-8-for-x86_64-baseos-rpms
-        - satellite-{{ satellite_version }}-for-rhel-8-x86_64-rpms
-        - satellite-maintenance-{{ satellite_version }}-for-rhel-8-x86_64-rpms
-      when: ansible_distribution_major_version == '8' and satellite_version >= 6.11
-      community.general.rhsm_repository:
-        name: '{{ item }}'
-        state: enabled
+    # - name: Enable all repositories needed for satellite on RHEL 8
+    #   with_items:
+    #     - rhel-8-for-x86_64-appstream-rpms
+    #     - rhel-8-for-x86_64-baseos-rpms
+    #     - satellite-{{ satellite_version }}-for-rhel-8-x86_64-rpms
+    #     - satellite-maintenance-{{ satellite_version }}-for-rhel-8-x86_64-rpms
+    #   when: ansible_distribution_major_version == '8' and satellite_version >= 6.11
+    #   community.general.rhsm_repository:
+    #     name: '{{ item }}'
+    #     state: enabled
 
-    - name: Enable ruby:2.7 and postgresql:12 modules for RHEL 8
-      with_items:
-        - '@ruby:2.7'
-        - '@postgresql:12'
-      when: ansible_distribution_major_version == '8' and satellite_version >= 6.11
-      ansible.builtin.dnf:
-        name: '{{ item }}'
-        state: present
+    # - name: Enable ruby:2.7 and postgresql:12 modules for RHEL 8
+    #   with_items:
+    #     - '@ruby:2.7'
+    #     - '@postgresql:12'
+    #   when: ansible_distribution_major_version == '8' and satellite_version >= 6.11
+    #   ansible.builtin.dnf:
+    #     name: '{{ item }}'
+    #     state: present
 
-    # Workaround for @satellite:el8 until https://github.com/ansible/ansible/pull/76277 is resolved
-    - name: Enable satellite:el8 module for RHEL 8
-      with_items:
-        - pki-core.module
-        - pki-deps.module
-        - satellite.module
-      when: ansible_distribution_major_version == '8' and satellite_version >= 6.11
-      ansible.builtin.copy:
-        dest: '/etc/dnf/modules.d/{{ item }}'
-        src: 'files/{{ item }}'
-        owner: root
-        group: root
-        mode: '0644'
+    # # Workaround for @satellite:el8 until https://github.com/ansible/ansible/pull/76277 is resolved
+    # - name: Enable satellite:el8 module for RHEL 8
+    #   with_items:
+    #     - pki-core.module
+    #     - pki-deps.module
+    #     - satellite.module
+    #   when: ansible_distribution_major_version == '8' and satellite_version >= 6.11
+    #   ansible.builtin.copy:
+    #     dest: '/etc/dnf/modules.d/{{ item }}'
+    #     src: 'files/{{ item }}'
+    #     owner: root
+    #     group: root
+    #     mode: '0644'
 
-    - name: Install the latest version of Satellite
-      ansible.builtin.dnf:
-        name: satellite
-        state: installed
+    # - name: Install the latest version of Satellite
+    #   ansible.builtin.dnf:
+    #     name: satellite
+    #     state: installed
 
-    - name: Run the Satellite installer
-      register: result
-      changed_when: result.rc == 1
-      failed_when: result.rc > 1
-      ansible.builtin.command: |
-          satellite-installer --scenario satellite
-          --foreman-initial-organization {{ satellite_organization }}
-          --foreman-initial-location {{ satellite_location }}
-          --foreman-initial-admin-username {{ satellite_username }}
-          --foreman-initial-admin-password {{ satellite_password }}
+    # - name: Run the Satellite installer
+    #   register: result
+    #   changed_when: result.rc == 1
+    #   failed_when: result.rc > 1
+    #   ansible.builtin.command: |
+    #       satellite-installer --scenario satellite
+    #       --foreman-initial-organization {{ satellite_organization }}
+    #       --foreman-initial-location {{ satellite_location }}
+    #       --foreman-initial-admin-username {{ satellite_username }}
+    #       --foreman-initial-admin-password {{ satellite_password }}
 
-    - name: Check to see if we need a reboot
-      register: result
-      changed_when: result.rc == 1
-      failed_when: result.rc > 1
-      check_mode: false
-      ansible.builtin.command: needs-restarting -r
+    # - name: Check to see if we need a reboot
+    #   register: result
+    #   changed_when: result.rc == 1
+    #   failed_when: result.rc > 1
+    #   check_mode: false
+    #   ansible.builtin.command: needs-restarting -r
 
-    - name: Reboot server if needed
-      when: result.rc == 1
-      ansible.builtin.reboot:
+    # - name: Reboot server if needed
+    #   when: result.rc == 1
+    #   ansible.builtin.reboot:
 
-    - name: Create the Satellite users
-      no_log: true
-      loop: "{{ users }}"
-      redhat.satellite.user:
-        username: "{{ satellite_username }}"
-        password: "{{ satellite_password }}"
-        name: "{{ item['name'] }}"
-        firstname: "{{ item['firstname'] }}"
-        lastname: "{{ item['lastname'] }}"
-        mail: "{{ item['mail'] }}"
-        description: "Tell us about yourself :-)"
-        admin: "{{ item['admin_account'] }}"
-        user_password: "{{ item['password'] }}"
-        default_organization: "{{ item['org_ids'] }}"
-        auth_source: Internal
-        timezone: "{{ item['timezone'] }}"
-        state: present
-        validate_certs: false
-        server_url: "https://{{ inventory_hostname }}"
+    # - name: Create the Satellite users
+    #   no_log: true
+    #   loop: "{{ users }}"
+    #   redhat.satellite.user:
+    #     username: "{{ satellite_username }}"
+    #     password: "{{ satellite_password }}"
+    #     name: "{{ item['name'] }}"
+    #     firstname: "{{ item['firstname'] }}"
+    #     lastname: "{{ item['lastname'] }}"
+    #     mail: "{{ item['mail'] }}"
+    #     description: "Tell us about yourself :-)"
+    #     admin: "{{ item['admin_account'] }}"
+    #     user_password: "{{ item['password'] }}"
+    #     default_organization: "{{ item['org_ids'] }}"
+    #     auth_source: Internal
+    #     timezone: "{{ item['timezone'] }}"
+    #     state: present
+    #     validate_certs: false
+    #     server_url: "https://{{ inventory_hostname }}"
 
     - name: My Satellite settings
       loop: "{{ satellite_settings }}"

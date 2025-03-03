@@ -1,0 +1,29 @@
+---
+controller_templates:
+  - name: "Satellite Setup"
+    job_type: run
+    inventory: AAP Managed Inventory
+    organization: "{{ my_organization }}"
+    execution_environment: Default execution environment
+    project: aap.dailydemo.satellite
+    playbook: playbooks/main-create.yml
+    job_tags: create
+    credentials:
+      - "{{ my_vault }}"
+      - "{{ my_rh_aap_credential }}"
+      - "{{ my_aws_credential }}"
+      - "{{ my_aws_machine_credential }}"
+
+  - name: "Satellite remove"
+    job_type: run
+    inventory: AAP Managed Inventory
+    organization: "{{ my_organization }}"
+    execution_environment: Default execution environment
+    project: aap.dailydemo.satellite
+    playbook: playbooks/main-remove.yml
+    job_tags: remove
+    credentials:
+      - "{{ my_vault }}"
+      - "{{ my_rh_aap_credential }}"
+      - "{{ my_aws_credential }}"
+      - "{{ my_aws_machine_credential }}"

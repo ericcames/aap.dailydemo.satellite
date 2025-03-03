@@ -1,0 +1,31 @@
+---
+authors:
+  - Eric Ames (ericcames)
+dependencies:
+  "amazon.aws": ">=7.2.0"
+  "ansible.posix": ">=1.6.2"
+  "ansible.utils": ">=5.1.2"
+  "ansible.platform": ">=2.5.3"
+  "ansible.hub": ">=1.0.0"
+  "ansible.controller": ">=4.6.2"
+  "ansible.eda": ">=2.2.0"
+  "infra.aap_configuration": ">=3.1.0"
+  "community.general": ">=10.3.1"
+  "redhat.rhel_system_roles": ">=1.88.9"
+  "redhat.insights": ">=1.3.0"
+  "redhat.satellite": ">=5.1.0"
+
+license_file: LICENSE
+name: satellite_dailydemo
+description: A Satellite demo that can be run every day to show people how Ansible Automation Platform can be used to manage RHEL servers.
+namespace: ericcames
+readme: README.md
+repository: https://github.com/ericcames/aap.dailydemo.satellite
+issues: https://github.com/ericcames/aap.dailydemo.satellite/issues
+tags:
+  - lab
+  - cloud
+  - aws
+  - satellite
+  - dailydemo
+version: 0.0.0
