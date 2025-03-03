@@ -165,6 +165,7 @@
         prior: "Library"
         description: "The Development environment"
         state: "present"
+        validate_certs: false
 
     - name: "Add a QA lifecycle environment"
       redhat.satellite.lifecycle_environment:
@@ -177,6 +178,7 @@
         prior: "Development"
         description: "The QA environment"
         state: "present"
+        validate_certs: false
 
     - name: "Add a Production lifecycle environment"
       redhat.satellite.lifecycle_environment:
@@ -189,6 +191,7 @@
         prior: "QA"
         description: "The Production environment"
         state: "present"
+        validate_certs: false
 
     - name: "Create Development content view"
       redhat.satellite.content_view:
