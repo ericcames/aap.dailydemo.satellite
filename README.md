@@ -6,7 +6,7 @@ Day 0 - Configuration as code (CAC)
 =========
 Configuration as code give you an easy way to recover/move your ansible related artifacts to a new or existing platform.  That includes your hardcoded credentials.  The hardcoded credentials can be safely vaulted in an ansible vault file.  Check out the setup_demo.yml for the configurations for setting up this demo using configuration as code.  The current example is for the F5 daily Demo because the doesn't exist for this demo yet.  When it exists this section will be updated.
 
-[setup_demo.yml](https://github.com/ericcames/aap.dailydemo.F5/blob/main/playbooks/setup_demo.yml "setup_demo.yml")<br>
+[setup_demo.yml](https://github.com/ericcames/aap.dailydemo.satellite/blob/main/playbooks/setup_demo.yml "setup_demo.yml")<br>
 
 Day 1 - Infrastructure as code (IAC)
 =========
