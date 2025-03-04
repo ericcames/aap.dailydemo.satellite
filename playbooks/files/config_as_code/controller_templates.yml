@@ -1,6 +1,6 @@
 ---
 controller_templates:
-  - name: "Satellite Setup"
+  - name: "Satellite create"
     job_type: run
     inventory: AAP Managed Inventory
     organization: "{{ my_organization }}"
