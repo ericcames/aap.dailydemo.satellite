@@ -1,4 +1,4 @@
-redhat_subscription_manager
+rhsm
 =========
 ```
 This role manages your red hat subs with the redhat customer portal
@@ -27,7 +27,7 @@ Example Playbook
 
   roles:
 
-    - role: redhat_subscription_manager
+    - role: rhsm
         status: present
 ```
 License

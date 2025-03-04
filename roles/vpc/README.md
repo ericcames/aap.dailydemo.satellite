@@ -12,8 +12,8 @@ Amazon Web Services Credential in Ansible Automation Platform
 Role Variables
 --------------
 ```
-vpc_name: f5-dailydemo
-vpc_cidr: 172.16.10.0/24
+vpc_name: satellite-dailydemo
+vpc_cidr: 172.16.20.0/24
 vpc_region: us-west-1
 vpc_user_name: eric.ames
 vpc_alwaysup: false
@@ -35,7 +35,7 @@ Example Playbook
 ----------------
 ```
 ---
-- name: Create our F5 daily demo
+- name: Create our vpc
   hosts: localhost
   connection: local
 
@@ -43,14 +43,14 @@ Example Playbook
 
     - name: Include the vpc role
       tags:
-        - createvpc
+        - create
       ansible.builtin.include_role:
         name: vpc
 
 or
 
 ---
-- name: Remove our F5 daily demo
+- name: Remove our vpc
   hosts: localhost
   connection: local
 
@@ -58,7 +58,7 @@ or
 
     - name: Include the vpc role
       tags:
-        - removevpc
+        - remove
       ansible.builtin.include_role:
         name: vpc
 

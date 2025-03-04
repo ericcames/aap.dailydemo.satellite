@@ -1,4 +1,4 @@
-linux_account_create
+account_create
 =========
 ```
 This role will create user accounts
@@ -27,7 +27,7 @@ Example Playbook
 
   roles:
 
-    - role: linux_account_create
+    - role: account_create
 ```
 License
 -------
