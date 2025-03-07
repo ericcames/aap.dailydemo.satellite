@@ -49,8 +49,31 @@ Group name
 satellite
 ```
 
-**The Cleanup Schedule**
-![alt text](https://github.com/ericcames/aap.dailydemo.satellite/blob/main/images/satcleanup.png "Satellite Daily Demo Cleanup")<br>
+**Letsencrypt-SSL-cert**
+[Chains of trust](https://letsencrypt.org/certificates/ "Chains of trust")<br>
+SSL Cert Process for Satellite
+```
+systemctl stop httpd
+
+certbot certonly --standalone -d sat.kona.services --agree-tos -q --key-type rsa --rsa-key-size 4096 -m ericcames@msn.com
+
+systemctl start httpd
+
+# Run the following command to see your new ssl certs
+certbot certificates
+
+# Download the appropriate root certs from this url
+# https://letsencrypt.org/certificates/
+
+# Concatenate root certs into a single file
+cat r10.pem isrgrootx1.pem > ca-bundle.cer
+
+satellite-installer --scenario satellite \
+--certs-server-cert "/etc/letsencrypt/live/sat.kona.services/fullchain.pem" \
+--certs-server-key "/etc/letsencrypt/live/sat.kona.services/privkey.pem" \
+--certs-server-ca-cert "/root/satellite_cert/ca-bundle.cer" \
+--certs-update-server --certs-update-server-ca
+```
 
 Day 2
 =========
