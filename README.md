@@ -50,7 +50,8 @@ satellite
 ```
 
 **Letsencrypt-SSL-cert**
-[Chains of trust](https://letsencrypt.org/certificates/ "Chains of trust")<br>
+
+- [Chains of trust](https://letsencrypt.org/certificates/ "Chains of trust")<br>
 SSL Cert Process for Satellite
 ```
 systemctl stop httpd
