@@ -1,6 +1,6 @@
 ---
 controller_templates:
-  - name: "Satellite create"
+  - name: "Run workflow for the Satellite Daily Demo"
     job_type: run
     inventory: AAP Managed Inventory
     organization: "{{ my_organization }}"
@@ -14,7 +14,7 @@ controller_templates:
       - "{{ my_aws_credential }}"
       - "{{ my_aws_machine_credential }}"
 
-  - name: "Satellite remove"
+  - name: "Delete Daily Demo Satellite"
     job_type: run
     inventory: AAP Managed Inventory
     organization: "{{ my_organization }}"
