@@ -1,7 +1,7 @@
 ---
 satellite_username: USERNAME
 satellite_password: PASSWORD
-satellite_organization: AmesCO
+satellite_organization: "IT Service Automation"
 satellite_location: California
 satellite_version: 6.15
 satellite_user_list_vault: ames_user_list_vault.yml

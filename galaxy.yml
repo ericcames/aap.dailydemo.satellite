@@ -2,21 +2,21 @@
 authors:
   - Eric Ames (ericcames)
 dependencies:
-  "amazon.aws": ">=7.2.0"
-  "ansible.posix": ">=1.6.2"
-  "ansible.utils": ">=5.1.2"
-  "ansible.platform": ">=2.5.3"
-  "ansible.hub": ">=1.0.0"
-  "ansible.controller": ">=4.6.2"
-  "ansible.eda": ">=2.2.0"
-  "infra.aap_configuration": ">=3.1.0"
-  "community.general": ">=10.3.1"
-  "redhat.rhel_system_roles": ">=1.88.9"
+  "amazon.aws": ">=10.1.2"
+  "ansible.posix": ">=2.1.0"
+  "ansible.utils": ">=6.0.0"
+  "ansible.platform": ">=2.6.20250924"
+  "ansible.hub": ">=1.0.2"
+  "ansible.controller": ">=4.7.4"
+  "ansible.eda": ">=2.10.0"
+  "infra.aap_configuration": ">=3.8.3"
+  "community.general": ">=11.4.0"
+  "redhat.rhel_system_roles": ">=1.108.6"
   "redhat.insights": ">=1.3.0"
-  "redhat.satellite": ">=5.1.0"
+  "redhat.satellite": ">=5.7.0"
 
 license_file: LICENSE
-name: satellite_dailydemo
+name: satellite_daily_demo
 description: A Satellite demo that can be run every day to show people how Ansible Automation Platform can be used to manage RHEL servers.
 namespace: ericcames
 readme: README.md
@@ -28,4 +28,4 @@ tags:
   - aws
   - satellite
   - dailydemo
-version: 0.0.0
+version: 1.0.0
