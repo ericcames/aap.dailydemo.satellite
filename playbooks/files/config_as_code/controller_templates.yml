@@ -15,6 +15,7 @@ controller_templates:
       - "{{ my_aws_machine_credential }}"
     extra_vars:
       my_remote_ssh_pub_key: "{{ my_remote_ssh_pub_key }}"
+      my_remote_vault: "{{ my_remote_vault }}"
 
   - name: "Delete Daily Demo Satellite"
     job_type: run

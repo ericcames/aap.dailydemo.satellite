@@ -8,6 +8,16 @@
       ansible.builtin.include_vars:
         file: files/{{ account_create_user_list_vault }}
 
+    - name: Grab vault from remote url
+      ansible.builtin.get_url:
+        url: '{{ my_remote_vault }}'
+        dest: files/remotevault.yml
+        mode: '0644'
+
+    - name: Include our vault info
+      ansible.builtin.include_vars:
+        file: files/remotevault.yml
+
     - name: Ensure users are created
       loop: "{{ users }}"
       no_log: false
