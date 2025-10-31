@@ -42,7 +42,7 @@
       loop: "{{ instance_info['instances'] }}"
       ansible.controller.host:
         controller_host: "{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}"
-        controller_oauthtoken: "{{ controller_token }}"
+        controller_oauthtoken: "{{ aap_token['token'] }}"
         validate_certs: false
         name: "{{ item['public_dns_name'] }}"
         inventory: "{{ inventory_managed_inventory_name }}"
@@ -53,7 +53,7 @@
       loop: "{{ instance_info['instances'] }}"
       ansible.controller.group:
         controller_host: "{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}"
-        controller_oauthtoken: "{{ controller_token }}"
+        controller_oauthtoken: "{{ aap_token['token'] }}"
         validate_certs: false
         name: satellite
         description: Automation Controller Group
@@ -96,7 +96,7 @@
         - satellite
       ansible.controller.group:
         controller_host: "{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}"
-        controller_oauthtoken: "{{ controller_token }}"
+        controller_oauthtoken: "{{ aap_token['token'] }}"
         validate_certs: false
         name: "{{ item }}"
         inventory: "{{ inventory_managed_inventory_name }}"
