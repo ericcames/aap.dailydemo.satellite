@@ -4,7 +4,7 @@ controller_templates:
     job_type: run
     inventory: AAP Managed Inventory
     organization: "{{ my_organization }}"
-    execution_environment: Default execution environment
+    execution_environment: amazon_aws_ee
     project: aap.dailydemo.satellite
     playbook: playbooks/main-create.yml
     job_tags: create
@@ -18,7 +18,7 @@ controller_templates:
     job_type: run
     inventory: AAP Managed Inventory
     organization: "{{ my_organization }}"
-    execution_environment: Default execution environment
+    execution_environment: amazon_aws_ee
     project: aap.dailydemo.satellite
     playbook: playbooks/main-remove.yml
     job_tags: remove
