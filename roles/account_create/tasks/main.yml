@@ -35,7 +35,7 @@
     - name: Create sudoers in sudoers.d directory
       loop: "{{ users }}"
       when: item['sudoers_account'] is true
-      no_log: true
+      no_log: false
       ansible.builtin.copy:
         dest: /etc/sudoers.d/{{ item['name'] }}
         content: "{{ item['name'] }} ALL=(ALL) NOPASSWD: ALL\n"
