@@ -10,7 +10,7 @@
 
     - name: Ensure users are created
       loop: "{{ users }}"
-      no_log: true
+      no_log: false
       ansible.builtin.user:
         name: "{{ item['name'] }}"
         password: "{{ item['user_password'] | password_hash('sha512') }}"
