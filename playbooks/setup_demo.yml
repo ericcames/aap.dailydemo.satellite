@@ -33,6 +33,12 @@
         scope: write
         state: present
 
+    - name: Grab vault from remote url
+      ansible.builtin.get_url:
+        url: '{{ my_remote_vault }}'
+        dest: files/config_as_code/remotevault.yml
+        mode: '0644'
+
     - name: Include configurations
       ansible.builtin.include_vars:
         dir: files/config_as_code
