@@ -10,6 +10,7 @@
 
     - name: Grab vault from remote url
       delegate_to: localhost
+      become: false
       ansible.builtin.get_url:
         url: '{{ my_remote_vault }}'
         dest: files/remotevault.yml
@@ -17,6 +18,7 @@
 
     - name: Include our vault info
       delegate_to: localhost
+      become: false
       ansible.builtin.include_vars:
         file: files/remotevault.yml
 
