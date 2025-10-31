@@ -1,0 +1,60 @@
+users:
+  - name: ansible-svc
+    sudoers_account: true
+    user_comment: "Service Account"
+    user_password: "{{ default_passwd }}"
+    user_home: /home/ansible-svc
+  - name: eames
+    sudoers_account: true
+    user_comment: "Administrative Account"
+    user_password: "{{ default_passwd }}"
+    user_home: /home/eames
+  - name: mark
+    sudoers_account: true
+    user_comment: "Administrative Account"
+    user_password: "{{ default_passwd }}"
+    user_home: /home/mark
+  - name: zleblanc
+    sudoers_account: true
+    user_comment: "Administrative Account"
+    user_password: "{{ default_passwd }}"
+    user_home: /home/zleblanc
+  - name: faith
+    sudoers_account: true
+    user_comment: "Administrative Account"
+    user_password: "{{ default_passwd }}"
+    user_home: /home/faith
+  - name: migilber
+    sudoers_account: true
+    user_comment: "Administrative Account"
+    user_password: "{{ default_passwd }}"
+    user_home: /home/migilber
+  - name: toharris
+    sudoers_account: true
+    user_comment: "Administrative Account"
+    user_password: "{{ default_passwd }}"
+    user_home: /home/toharris
+  - name: bhinson
+    sudoers_account: true
+    user_comment: "Administrative Account"
+    user_password: "{{ default_passwd }}"
+    user_home: /home/bhinson
+
+keys:
+  - name: eames
+    key: files/public_keys/eames
+  - name: ansible-svc
+    key: files/public_keys/ansible-svc
+  - name: mark
+    key: files/public_keys/mark
+  - name: zleblanc
+    key: files/public_keys/zleblanc
+  - name: faith
+    key: files/public_keys/faith
+  - name: migilber
+    key: files/public_keys/migilber
+  - name: toharris
+    key: files/public_keys/toharris
+  - name: bhinson
+    key: files/public_keys/bhinson
+

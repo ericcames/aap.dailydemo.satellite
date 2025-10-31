@@ -1,0 +1,49 @@
+---
+satellite_username: root
+satellite_password: "{{ default_passwd }}"
+users:
+  - name: hercules
+    admin_account: true
+    mail: eric.ames@redhat.com
+    password: "{{ default_passwd }}"
+    auth_source: INTERNAL
+    org_ids: "IT Service Automation"
+    firstname: Eric
+    lastname: Ames
+    timezone: Arizona
+  - name: migilber
+    admin_account: true
+    mail: migilber@redhat.com
+    password: "{{ default_passwd }}"
+    auth_source: INTERNAL
+    org_ids: "IT Service Automation"
+    firstname: Mike
+    lastname: Gilbert
+    timezone: Arizona
+  - name: toharris
+    admin_account: true
+    mail: toharris@redhat.com
+    password: "{{ default_passwd }}"
+    auth_source: INTERNAL
+    org_ids: "IT Service Automation"
+    firstname: Tony
+    lastname: Harris
+    timezone: Pacific Time (US & Canada)
+  - name: mlowcher
+    admin_account: true
+    mail: mlowcher@redhat.com
+    password: "{{ default_passwd }}"
+    auth_source: INTERNAL
+    org_ids: "IT Service Automation"
+    firstname: Mark
+    lastname: Lowcher
+    timezone: Pacific Time (US & Canada)
+  - name: bhisnon
+    admin_account: true
+    mail: bhinson@redhat.com
+    password: "{{ default_passwd }}"
+    auth_source: INTERNAL
+    org_ids: "IT Service Automation"
+    firstname: Brad
+    lastname: Hinson
+    timezone: Pacific Time (US & Canada)

@@ -3,7 +3,7 @@ satellite_username: USERNAME
 satellite_password: PASSWORD
 satellite_organization: "IT Service Automation"
 satellite_location: California
-satellite_version: 6.15
-satellite_user_list_vault: ames_user_list_vault.yml
+satellite_version: 6.17
+satellite_user_list_vault: user_list.yml
 satellite_sat6_fqdn: "{{ satellite_sat6_fqdn }}"
 satellite_manifest: AmesCO-Satellite-manifest.zip
