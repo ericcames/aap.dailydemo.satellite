@@ -1,15 +1,15 @@
-- name: Remove our server from Red Hat
-  hosts: satellite
-  become: true
-  become_user: root
+# - name: Remove our server from Red Hat
+#   hosts: satellite
+#   become: true
+#   become_user: root
 
-  tasks:
+#   tasks:
 
-    - name: Red Hat Subscription Manager
-      tags:
-        - remove
-      ansible.builtin.include_role:
-        name: rhsm
+#     - name: Red Hat Subscription Manager
+#       tags:
+#         - remove
+#       ansible.builtin.include_role:
+#         name: rhsm
 
 - name: Satellite daily demo
   hosts: localhost
