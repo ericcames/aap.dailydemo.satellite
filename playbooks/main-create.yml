@@ -62,12 +62,6 @@
 
   tasks:
 
-    - name: Create local accounts
-      tags:
-        - create
-      ansible.builtin.include_role:
-        name: account_create
-
     - name: Red Hat Subscription Manager
       tags:
         - create
@@ -79,6 +73,12 @@
         - create
       ansible.builtin.include_role:
         name: linux_post_install
+
+    - name: Create local accounts
+      tags:
+        - create
+      ansible.builtin.include_role:
+        name: account_create
 
     - name: Install satellite
       tags:
