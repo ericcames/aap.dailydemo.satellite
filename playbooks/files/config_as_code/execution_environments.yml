@@ -1,0 +1,7 @@
+---
+controller_execution_environments:
+  - name: amazon_aws_ee
+    image: quay.io/zigfreed/amazon_aws_ee:latest
+    pull: missing
+    organization: "{{ my_organization }}"
+    credential: quay.io
