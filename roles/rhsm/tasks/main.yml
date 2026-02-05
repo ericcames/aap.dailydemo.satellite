@@ -8,14 +8,17 @@
       ansible.builtin.hostname:
         name: "{{ satellite_sat6_fqdn }}"
 
+    - name: Debug
+      ansible.builtin.debug:
+        msg: "{{ rh_activation_key }} and {{ rh_org_id }}"
+
     - name: Register and subscribe the system
       vars:
         rhc_auth:
           activation_keys:
             keys:
               - "{{ rh_activation_key }}"
-        rhc_organization:
-          - "{{ rh_org_id }}"
+        rhc_organization: '{{ rh_org_id }}'
         rhc_insights:
           autoupdate: true
           remediation: present
