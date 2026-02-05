@@ -14,7 +14,7 @@
           activation_keys:
             keys:
               - "{{ rh_activation_key }}"
-          rhc_organization: "{{ rh_org_id }}"
+        rhc_organization: "{{ rh_org_id }}"
         rhc_insights:
           autoupdate: true
           remediation: present
