@@ -9,34 +9,40 @@
         name: "{{ satellite_sat6_fqdn }}"
 
     - name: Register and subscribe the system
-      community.general.redhat_subscription:
-        username: "{{ customer_portal_username }}"
-        password: "{{ customer_portal_password }}"
-        state: present
-        consumer_name: "{{ rhsm_sat6_fqdn }}"
-        pool_ids:
-          - '{{ rhsm_pool_id }}'
-
-    - name: Register with Red Hat Insights
-      register: result
-      changed_when: result.rc == 1
-      failed_when: result.rc > 1
-      ansible.builtin.command: insights-client --register
+      vars:
+        rhc_auth:
+          activation_keys:
+            keys:
+              - "{{ rh_activation_key }}"
+          rhc_organization: "{{ rh_org_id }}"
+        rhc_insights:
+          autoupdate: true
+          remediation: present
+      ansible.builtin.include_role:
+        name: rhel-system-roles.rhc
 
 - name: Un-Registering system with Red Hat
   tags:
     - remove
   block:
 
-    - name: UN-Register and subscribe the system
-      community.general.redhat_subscription:
-        username: "{{ customer_portal_username }}"
-        password: "{{ customer_portal_password }}"
-        state: absent
-        consumer_name: "{{ rhsm_sat6_fqdn }}"
+    # - name: UN-Register and subscribe the system
+    #   community.general.redhat_subscription:
+    #     username: "{{ customer_portal_username }}"
+    #     password: "{{ customer_portal_password }}"
+    #     state: absent
+    #     consumer_name: "{{ rhsm_sat6_fqdn }}"
 
-    - name: UN-Register Red Hat Insights
-      register: result
-      changed_when: result.rc == 1
-      failed_when: result.rc > 1
-      ansible.builtin.command: insights-client --unregister
+    # - name: UN-Register Red Hat Insights
+    #   register: result
+    #   changed_when: result.rc == 1
+    #   failed_when: result.rc > 1
+    #   ansible.builtin.command: insights-client --unregister
+
+    - name: Un-Register and Un-subscribe the system
+      vars:
+        rhc_state: absent
+        rhc_insights:
+          state: absent
+      ansible.builtin.include_role:
+        name: rhel-system-roles.rhc
