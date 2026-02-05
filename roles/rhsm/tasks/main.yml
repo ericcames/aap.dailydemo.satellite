@@ -19,7 +19,7 @@
           autoupdate: true
           remediation: present
       ansible.builtin.include_role:
-        name: rhel-system-roles.rhc
+        name: redhat.rhel_system_roles.rhc
 
 - name: Un-Registering system with Red Hat
   tags:
@@ -45,4 +45,4 @@
         rhc_insights:
           state: absent
       ansible.builtin.include_role:
-        name: rhel-system-roles.rhc
+        name: redhat.rhel_system_roles.rhc
